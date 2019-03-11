@@ -1,5 +1,3 @@
-13:30   15:30
-10 fen
-16:00  
+3.30fen
 
 <% @user.errors.full_messages.each do |error| %>
