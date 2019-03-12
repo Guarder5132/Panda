@@ -1,2 +1,22 @@
-<h1>Users#edit</h1>
-<p>Find me in app/views/users/edit.html.erb</p>
+<% provide(:title, "Update") %>
+<h1>Update User</h1>
+<div>
+    <%= form_for(@user) do |f| %>
+        <%= render 'shared/error' %>
+
+        <%= f.label :name%>
+        <%= f.text_field :name %>
+
+        <%= f.label :email%>
+        <%= f.text_field :email%>
+
+        <%= f.label :password %>
+        <%= f.password_field :password %>
+
+        <%= f.label :password_confirmation, "Confirmat" %>
+        <%= f.password_field :password_confirmation %>
+
+        <p><%= f.submit "Update", class:"btn" %>
+
+    <% end %>
+</div>
