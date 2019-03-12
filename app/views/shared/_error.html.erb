@@ -1,7 +1,9 @@
-<% if @user.errors.any? %>
+<% if object.errors.any? %>
     <div class="error">
-        <% @user.errors.full_messages.each do |error| %>
-            <%= error %> /
-        <% end %>
+         <h6>Error :
+            <% object.errors.full_messages.each do |error| %>
+                <%= error %> /
+            <% end %>
+        </h6>
     </div>
 <% end %>

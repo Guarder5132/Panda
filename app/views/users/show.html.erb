@@ -3,5 +3,20 @@
     <%= gravatar_for @user, size:40%>
     <%= @user.name %>
 </h1>
+<div>
+    <h3>Microposts(<%= @microposts.count %>)</h3>
+    <% if @microposts.any? %>
+        <% @microposts.each do |micropost| %>
+            <li>
+                <h6>
+                Content: <%= micropost.content %> | | 
+                Create Time: <%= micropost.created_at %> | |
+                <%= link_to "Delete", micropost, method: :delete %>
+                </h6> 
+            </li>
+        <% end %>
+        <%= will_paginate @microposts%>
+    <% end %>
+</div>
 
 

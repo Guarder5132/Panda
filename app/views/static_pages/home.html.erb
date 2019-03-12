@@ -1,5 +1,31 @@
-<h1>Home</h1>
-<h2>Welcome to my panda app, please click button "Signup User" </h2>
-<div>
-    <%= link_to "Signup User", signup_path, class: "btn"%>
-</div>
+<% if signed_in? %>
+    <div>
+        <h4>Create Micropost</h4>
+        <%= form_for(@micropost) do |f| %>
+            <%= render'shared/error', object: f.object%>
+            <%= f.text_area :content, placeholder:"Please enter what you want to send. " %>
+            <p><%= f.submit "Create",class:"btn" %>
+        <% end %>
+    </div>
+    <div>
+        <% if @feeds.any? %>
+            <% @feeds.each do |feed| %>
+                <li>
+                    <h6>
+                    [ <%= gravatar_for feed.user,size: 30 %><%=link_to feed.user.name, feed.user%> ]
+                    Content: <%= feed.content %> <p>
+                    Create Time: <%= feed.created_at %> | |
+                    <%= link_to "Delete", feed, method: :delete %>
+                    </h6> 
+                </li>
+            <% end %>
+            <%= will_paginate @feeds%>
+        <% end %>
+    </div>
+<% else %>
+    <h1>Panda App</h1>
+    <h2>Welcome to my panda app, please click button "Signup User" </h2>
+    <div>
+        <%= link_to "Signup User", signup_path, class: "btn"%>
+    </div>
+<% end %>
