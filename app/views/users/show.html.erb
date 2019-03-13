@@ -5,6 +5,7 @@
 </h1>
 <div>
     <h3>Microposts(<%= @microposts.count %>)</h3>
+    <%= render 'follow_button' %>
     <% if @microposts.any? %>
         <% @microposts.each do |micropost| %>
             <li>

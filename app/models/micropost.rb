@@ -5,6 +5,7 @@ class Micropost < ActiveRecord::Base
     default_scope -> { order(" created_at DESC ") }
     
     def self.from_user_followed_by(user)
-        where("user_id = ?", user)
+        followed_user_ids = "select followed_id from relationships where follower_id = :user_id"
+        where("user_id IN (#{followed_user_ids}) OR user_id = :user_id",user_id: user.id)
     end
 end

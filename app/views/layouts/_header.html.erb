@@ -5,6 +5,10 @@
             <ul class="nav pull-right">
                 <li><%= link_to "Home" , root_path%></li>
                 <% if signed_in? %>
+                    <% @user ||= current_user %>
+                    <li><%= link_to "#{@user.followed_users.count} Following ", following_user_path(@user)%></li>
+                    <li><%= link_to "#{@user.followers.count} Followers ", followers_user_path(@user)%></li>
+
                     <li id="fat-menu" class="dropdown"> 
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <%= current_user.name %> <b class="caret"></b>
@@ -17,7 +21,7 @@
                             <li><%= link_to "Sign out", signout_path, method: :delete%></li>
                         </ul>
                     </li>
-                    <%= gravatar_for current_user,size:40%>
+                    <%= gravatar_for current_user,size:40%> 
                 <% else %>
                     <li><%= link_to "Sign in" , signin_path%></li>
                 <% end %>
