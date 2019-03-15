@@ -1,11 +1,16 @@
 <% provide(:title, @title) %>
 <div>
+    <% @users.each do |user| %>
+        <%= gravatar_for user, size:20 %>
+    <% end %>
+</div>
+<div>
     <h3>Following</h3>
     <% @users.each do |user| %>
-        <h6>
+        <h5>
             <%= gravatar_for user, size:20 %> <%= link_to user.name, user %> // 
             Email: <%= user.email %>
-        </h6>
+        </h5>
     <% end %>
     <%= will_paginate @users %>
 </div>

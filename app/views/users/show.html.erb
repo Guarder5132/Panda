@@ -6,18 +6,35 @@
 <div>
     <h3>Microposts(<%= @microposts.count %>)</h3>
     <%= render 'follow_button' %>
+
+    <%# 显示微博 %>
     <% if @microposts.any? %>
         <% @microposts.each do |micropost| %>
             <li>
-                <h6>
+                <h5>
                 Content: <%= micropost.content %> | | 
                 Create Time: <%= micropost.created_at %> | |
                 <%= link_to "Delete", micropost, method: :delete %>
-                </h6> 
+                </h5> 
             </li>
+
+            <%# 显示评论 %>
+            <% if micropost.pinluns.any? %>
+                <% micropost.pinluns.each do |pinlun| %>
+                    <h6>
+                        <%= gravatar_for pinlun.user, size:20%>
+                        <%= pinlun.user.name%>:
+                        <%= pinlun.content %> | | 
+                        <%= link_to "delete", pinlun, method: :delete %>
+                    </h6>
+                <% end %>
+            <% end %>
+
+        
         <% end %>
         <%= will_paginate @microposts%>
     <% end %>
+
 </div>
 
 

@@ -2,6 +2,8 @@ Panda::Application.routes.draw do
   resources :sessions ,only: [:new, :create, :destroy]
   resources :microposts, only: [:create, :destroy]
   resources :relationships, only: [:create, :destroy]
+  resources :pinluns
+
   resources :users do
     member do
       get :following ,:followers
@@ -9,6 +11,7 @@ Panda::Application.routes.draw do
   end
 
   root to: "static_pages#home",    via:"get"
+
   match "/help",     to:"static_pages#help" ,   via:"get"
   match "/about",    to:"static_pages#about" ,  via:"get"
   match "/contact",  to:"static_pages#contact", via:"get"

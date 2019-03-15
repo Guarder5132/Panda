@@ -1,0 +1,2 @@
+module PinlunsHelper
+end

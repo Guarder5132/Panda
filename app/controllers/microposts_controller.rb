@@ -7,12 +7,13 @@ class MicropostsController < ApplicationController
         if @micropost.save
             flash[:success] = "Create Micropost Success"
             redirect_to root_path
-        else
+        else    
             @feeds = []
             render 'static_pages/home'
         end
     end
- 
+    
+
     def destroy
         @micropost.destroy
         redirect_to user_path(current_user)
@@ -27,5 +28,5 @@ class MicropostsController < ApplicationController
         def correct_user
             @micropost = current_user.microposts.find_by(id: params[:id])
             redirect_to root_path if @micropost.nil?
-        end
+        end 
 end

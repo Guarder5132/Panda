@@ -1,27 +1,51 @@
 <% if signed_in? %>
     <div>
-        <h4>Create Micropost</h4>
+        <h4>Create Micropost</h4> 
         <%= form_for(@micropost) do |f| %>
             <%= render'shared/error', object: f.object%>
             <%= f.text_area :content, placeholder:"Please enter what you want to send. ",style:"margin: 0px 0px 10px; width: 1229px; height: 54px;" %>
             <p><%= f.submit "Create",class:"btn" %>
-        <% end %>
+        <% end %> 
     </div>
+
     <div>
         <% if @feeds.any? %>
             <% @feeds.each do |feed| %>
-                <li>
-                    <h6>
+                <h5>
                     [ <%= gravatar_for feed.user,size: 30 %><%=link_to feed.user.name, feed.user%> ]
-                    Content: <%= feed.content %> <p>
-                    Create Time: <%= feed.created_at %> | |
-                    <%= link_to "Delete", feed, method: :delete %>
-                    </h6> 
-                </li>
+                    <p>Content: <%= feed.content %>  | |
+                    Create Time: <%= feed.created_at %>
+                </h5> 
+
+                    <%# 创建评论 %>
+                <%= form_for(current_user.pinluns.build(micropost_id: feed.id)) do |f| %>
+                    <h5>
+                        <%= f.hidden_field :micropost_id %>
+                        <%= f.text_area :content, placeholder:"Please enter what you want to send. ",style:"margin: 0px 0px 10px; width: 481px; height: 32px;"%>
+                        <%= f.submit "pinlun", class:"btn"%>
+                    </h5>
+                <% end %>
+
+
+                <%# 显示评论 %>
+                <% if feed.pinluns.any? %>
+                    <h5>Pinlun:</h5>
+                    <% feed.pinluns.each do |pinlun| %>
+                        <h6>
+                            <%= gravatar_for pinlun.user, size:20%>
+                            <%= pinlun.user.name%>:
+                            <%= pinlun.content %> | | 
+                            <%= link_to "delete",pinlun, method: :delete %>
+                        </h6>
+                    <% end %>
+                <% end %>
+
+
             <% end %>
             <%= will_paginate @feeds%>
         <% end %>
     </div>
+    
 <% else %>
     <h1>Panda App</h1>
     <h2>Welcome to my panda app, please click button "Signup User" </h2>

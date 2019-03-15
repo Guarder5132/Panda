@@ -42,6 +42,9 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @microposts = @user.microposts.paginate(page: params[:page])
+  
+    # @pinlun = current_user.microposts.find(params[:id]).pinluns.build
+    @pinlun = @user.microposts.find(params[:id]).pinluns.build  if @user.microposts.any?
   end
 
   def following
